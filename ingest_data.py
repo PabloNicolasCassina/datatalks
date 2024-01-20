@@ -15,7 +15,7 @@ def main(params):
 
     csv_name = "yellow_tripdata_2021-01.csv.gz"
 
-    os.system(f"wget{url} -O {csv_name}")
+    os.system(f"wget {url} -O {csv_name}")
 
     engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db}")
 
