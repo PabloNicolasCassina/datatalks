@@ -8,15 +8,15 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("/home/nico/datatalks/Terraform/keys/datatalks-course-a2c80630547c.json")
-  project = "datatalks-course"
-  region  = "us-west4"
-  zone    = "us-west4-a"
+  credentials = file(var.credentials)
+  project     = var.project
+  region      = var.region
+  zone        = var.zone
 }
 
 resource "google_storage_bucket" "demo-bucket-00215" {
-  name          = "datatalks-course-terra-046854"
-  location      = "US"
+  name          = var.gcs_bucket_name
+  location      = var.location
   force_destroy = true
 
   lifecycle_rule {
@@ -27,4 +27,9 @@ resource "google_storage_bucket" "demo-bucket-00215" {
       type = "AbortIncompleteMultipartUpload"
     }
   }
+}
+
+resource "google_bigquery_dataset" "demo_dataset" {
+  dataset_id = var.bq_dataset_name
+  location = var.location
 }
